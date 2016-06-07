@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1976D2</color>
+    <color name="colorPrimaryDark">#2196F3</color>
+    <color name="colorAccent">#009688</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="white_press">#fff9f9f9</color>
+    <color name="text_primary">#212121</color>
+    <color name="text_second">#727272</color>
+    <color name="text_third">#B6B6B6</color>
+    <color name="gray_divider">#e1e1e1</color>
+    <color name="gray_edge">#dfdfdf</color>
+</resources>

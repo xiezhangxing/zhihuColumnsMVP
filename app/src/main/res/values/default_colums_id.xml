@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="default_columns_ids">
+        <item>boshanlu</item> <!-- 博山炉 -->
+        <item>shanghanlun</item> <!-- 伤寒论是门解剖学 -->
+        <item>insuranc-law</item> <!-- 谈谈保险和保险法 -->
+        <item>MDinA</item> <!-- Material Design in Action -->
+        <item>hanzi</item> <!-- 汉字 -->
+        <item>marila</item> <!-- 马锐拉的池塘 -->
+        <item>learningneuroscience</item> <!-- 原来大脑是这么工作的：神经科学学术笔记 -->
+        <item>DaqizhiXiang</item> <!-- 大气之象 -->
+        <item>regulusone</item> <!-- OBAFGKM -->
+        <item>invest</item> <!-- 价值发现 -->
+        <item>hemingke</item> <!-- 数据冰山 -->
+        <item>plant</item> <!-- 花事未了 -->
+        <item>shenzhenware</item> <!-- 深圳湾 | shenzhenware -->
+        <item>taosay</item> <!-- 道哥的黑板报 -->
+        <item>adapt</item> <!-- 健康管理 -->
+        <item>wangwei76</item> <!-- 中国上古史 -->
+    </string-array>
+</resources>

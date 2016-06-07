@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.classic.common.MultipleStatusView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/view_multiple_status">
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/content_view">
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/view_recycler" />
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+    </com.classic.common.MultipleStatusView>
+
+</LinearLayout>

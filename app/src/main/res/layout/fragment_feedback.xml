@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="150dp"
+        android:gravity="center"
+        android:text="所有文章版权属于原作者和知乎，请勿用于商业用途"
+        style="@style/text_second"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text= "bug反馈：xiezhangxing09@163.com"
+        style="@style/text_third"
+        android:paddingTop="20dp"/>
+
+</LinearLayout>
