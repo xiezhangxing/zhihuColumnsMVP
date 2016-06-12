@@ -34,7 +34,7 @@ public class DefaultColumnsFragment extends Fragment implements DefaultColumnsCo
 
     private MultipleStatusView mMultipleStatusView;
     private SwipeRefreshLayout mRefreshLayout;
-    private RecyclerView mRecylerView;
+    private RecyclerView mRecyclerView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,7 +47,7 @@ public class DefaultColumnsFragment extends Fragment implements DefaultColumnsCo
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_columns, container, false);
-        mRecylerView = (RecyclerView) view.findViewById(R.id.view_recycler);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.view_recycler);
         mMultipleStatusView = (MultipleStatusView) view.findViewById(R.id.view_multiple_status);
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.content_view);
         mRefreshLayout.setColorSchemeColors(R.color.colorPrimary, R.color.colorAccent);
@@ -59,9 +59,9 @@ public class DefaultColumnsFragment extends Fragment implements DefaultColumnsCo
             }
         });
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        mRecylerView.setLayoutManager(layoutManager);
+        mRecyclerView.setLayoutManager(layoutManager);
         mAdapter = new ColumnsAdapter(getActivity(), mColumns, this);
-        mRecylerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(mAdapter);
 
         mPresenter.start();
         return view;
@@ -100,6 +100,7 @@ public class DefaultColumnsFragment extends Fragment implements DefaultColumnsCo
     public void onItemClick(Column column) {
         Intent intent = new Intent(getActivity(), ArticlesActivity.class);
         intent.putExtra("id", column.slug);
+        intent.putExtra("name", column.name);
         getActivity().startActivity(intent);
     }
 }

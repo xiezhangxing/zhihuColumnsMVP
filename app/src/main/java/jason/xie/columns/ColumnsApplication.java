@@ -14,16 +14,16 @@ import rx.schedulers.Schedulers;
 
 public class ColumnsApplication extends Application {
 
-    private APIService githubService;
-    private Scheduler defaultSubscribeScheduler;
+    private APIService mApiService;
+    private Scheduler mDefaultSubscribeScheduler;
     private static ColumnsApplication mApplication;
-    private SharedPreferencesHelper preferencesHelper;
-    private Context context;
+    private SharedPreferencesHelper mPreferencesHelper;
+    private Context mContext;
 
     @Override
     public void onCreate(){
         super.onCreate();
-        context = getApplicationContext();
+        mContext = getApplicationContext();
     }
 
     public static ColumnsApplication get() {
@@ -34,24 +34,24 @@ public class ColumnsApplication extends Application {
     }
 
     public APIService getAPIService() {
-        if (githubService == null) {
-            githubService = APIService.Factory.create();
+        if (mApiService == null) {
+            mApiService = APIService.Factory.create();
         }
-        return githubService;
+        return mApiService;
     }
 
     public Scheduler defaultSubscribeScheduler() {
-        if (defaultSubscribeScheduler == null) {
-            defaultSubscribeScheduler = Schedulers.io();
+        if (mDefaultSubscribeScheduler == null) {
+            mDefaultSubscribeScheduler = Schedulers.io();
         }
-        return defaultSubscribeScheduler;
+        return mDefaultSubscribeScheduler;
     }
 
     public SharedPreferencesHelper getPreferencesHelper(){
-        if(preferencesHelper == null){
-            preferencesHelper = new SharedPreferencesHelper(context);
+        if(mPreferencesHelper == null){
+            mPreferencesHelper = new SharedPreferencesHelper(mContext);
         }
-        return  preferencesHelper;
+        return  mPreferencesHelper;
     }
 
 }

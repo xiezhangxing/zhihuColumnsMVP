@@ -30,9 +30,11 @@ public class ArticlesPresenter implements ArticlesContract.Presenter {
 
     @Override
     public void loadArticles(String id, int limit, int offset) {
+        if(mArticles == null || mArticles.size() < 1){
+            mArticlesView.showLoading();
+        }
         if(offset == 0){
             mArticles.clear();
-            mArticlesView.showLoading();
         }
         if(mSubscription != null){
             mSubscription.unsubscribe();

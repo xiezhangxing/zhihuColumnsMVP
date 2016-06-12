@@ -41,7 +41,7 @@ public class CustomColumnsFragment extends Fragment implements CustomColumnsCont
 
     private MultipleStatusView mMultipleStatusView;
     private SwipeRefreshLayout mRefreshLayout;
-    private RecyclerView mRecylerView;
+    private RecyclerView mRecyclerView;
     private FloatingActionButton mFab;
     private TextView mEmptyView;
 
@@ -59,7 +59,7 @@ public class CustomColumnsFragment extends Fragment implements CustomColumnsCont
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_columns_custom, container, false);
         mEmptyView = (TextView) view.findViewById(R.id.text_empty);
-        mRecylerView = (RecyclerView) view.findViewById(R.id.view_recycler);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.view_recycler);
         mMultipleStatusView = (MultipleStatusView) view.findViewById(R.id.view_multiple_status);
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.content_view);
         mRefreshLayout.setColorSchemeColors(R.color.colorPrimary, R.color.colorAccent);
@@ -71,9 +71,9 @@ public class CustomColumnsFragment extends Fragment implements CustomColumnsCont
             }
         });
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        mRecylerView.setLayoutManager(layoutManager);
+        mRecyclerView.setLayoutManager(layoutManager);
         mAdapter = new ColumnsAdapter(getActivity(), mColumns, this);
-        mRecylerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(mAdapter);
         mFab = (FloatingActionButton) view.findViewById(R.id.fab);
         mFab.setOnClickListener(this);
 
@@ -129,6 +129,7 @@ public class CustomColumnsFragment extends Fragment implements CustomColumnsCont
     public void onItemClick(Column column) {
         Intent intent = new Intent(getActivity(), ArticlesActivity.class);
         intent.putExtra("id", column.slug);
+        intent.putExtra("name", column.name);
         getActivity().startActivity(intent);
     }
 
@@ -162,7 +163,7 @@ public class CustomColumnsFragment extends Fragment implements CustomColumnsCont
                     public void onClick(View v) {
                         final String columnId = dialog.getInputEditText().getText().toString();
                         if (!columnId.isEmpty()){
-                            mPresenter.addColum(columnId);
+                            mPresenter.addColumn(columnId);
                         }
                         dialog.dismiss();
                     }

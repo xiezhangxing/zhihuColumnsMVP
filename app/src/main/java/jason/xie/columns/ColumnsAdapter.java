@@ -20,29 +20,29 @@ import jason.xie.columns.model.Column;
 
 public class ColumnsAdapter extends RecyclerView.Adapter<ColumnsAdapter.ColumnViewHolder> {
 
-    private Context context;
-    private List<Column> columns;
-    private Callback callback;
+    private Context mContext;
+    private List<Column> mColumns;
+    private Callback mCallback;
 
     public ColumnsAdapter(Context context, List<Column> columns, Callback callback){
-        this.context = context;
-        this.columns = columns;
-        this.callback = callback;
+        this.mContext = context;
+        this.mColumns = columns;
+        this.mCallback = callback;
     }
 
     public void setColumns(List<Column> columns){
-        this.columns = columns;
+        this.mColumns = columns;
     }
 
     @Override
     public ColumnViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        final View itemView = LayoutInflater.from(context).inflate(R.layout.item_column, parent, false);
+        final View itemView = LayoutInflater.from(mContext).inflate(R.layout.item_column, parent, false);
         final ColumnViewHolder viewHolder = new ColumnViewHolder(itemView);
         viewHolder.contentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(callback != null){
-                    callback.onItemClick(viewHolder.column);
+                if(mCallback != null){
+                    mCallback.onItemClick(viewHolder.column);
                 }
             }
         });
@@ -51,10 +51,10 @@ public class ColumnsAdapter extends RecyclerView.Adapter<ColumnsAdapter.ColumnVi
 
     @Override
     public void onBindViewHolder(ColumnViewHolder holder, int position) {
-        if(columns == null){
+        if(mColumns == null){
             return;
         }
-        Column column = columns.get(position);
+        Column column = mColumns.get(position);
         holder.column = column;
         holder.textTitle.setText(column.name);
         holder.textFollowersCount.setText(column.followersCount + "人关注");
@@ -62,17 +62,17 @@ public class ColumnsAdapter extends RecyclerView.Adapter<ColumnsAdapter.ColumnVi
         holder.textDescription.setText(column.description);
         String avatarUrl = column.avatar.template.replace("{id}", column.avatar.id)
                 .replace("{size}", "l");
-        Picasso.with(context)
+        Picasso.with(mContext)
                 .load(avatarUrl)
                 .into(holder.imageAvatar);
     }
 
     @Override
     public int getItemCount() {
-        if(columns == null){
+        if(mColumns == null){
             return 0;
         }
-        return columns.size();
+        return mColumns.size();
     }
 
     public class ColumnViewHolder extends RecyclerView.ViewHolder {

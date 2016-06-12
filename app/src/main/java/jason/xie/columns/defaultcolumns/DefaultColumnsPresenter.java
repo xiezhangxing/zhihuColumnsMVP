@@ -6,6 +6,9 @@ import java.util.List;
 import jason.xie.columns.ColumnsApplication;
 import jason.xie.columns.model.APIService;
 import jason.xie.columns.model.Column;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -38,24 +41,17 @@ public class DefaultColumnsPresenter implements DefaultColumnsContract.Presenter
             mSubscription.unsubscribe();
         }
         for(String id : mDefaultIds){
-            mSubscription = mAPIService.getColumnById(id)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeOn(mApplication.defaultSubscribeScheduler())
-                    .subscribe(new Subscriber<Column>() {
+            mAPIService.getColumnById(id)
+                    .enqueue(new Callback<Column>() {
                         @Override
-                        public void onCompleted() {
-
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            e.printStackTrace();
-                        }
-
-                        @Override
-                        public void onNext(Column column) {
-                            mColumns.add(column);
+                        public void onResponse(Call<Column> call, Response<Column> response) {
+                            mColumns.add(response.body());
                             mDefaultColumnsView.showColumns(mColumns);
+                        }
+
+                        @Override
+                        public void onFailure(Call<Column> call, Throwable t) {
+
                         }
                     });
         }

@@ -28,7 +28,7 @@ public interface CustomColumnsContract {
 
         void loadColumns();
 
-        void addColum(String id);
+        void addColumn(String id);
 
         void removeColumn(int position);
 

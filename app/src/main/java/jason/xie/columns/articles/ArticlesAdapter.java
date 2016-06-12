@@ -23,29 +23,29 @@ import jason.xie.columns.utils.SystemUtils;
 
 public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ArticleViewHolder> {
 
-    private Context context;
-    private List<Article> articles;
-    private Callback callback;
+    private Context mContext;
+    private List<Article> mArticles;
+    private Callback mCallback;
 
     public ArticlesAdapter(Context context, List<Article> articles, Callback callback){
-        this.context = context;
-        this.articles = articles;
-        this.callback = callback;
+        this.mContext = context;
+        this.mArticles = articles;
+        this.mCallback = callback;
     }
 
     public void setArticles(List<Article> articles){
-        this.articles = articles;
+        this.mArticles = articles;
     }
 
     @Override
     public ArticlesAdapter.ArticleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        final View itemView = LayoutInflater.from(context).inflate(R.layout.item_article, parent, false);
+        final View itemView = LayoutInflater.from(mContext).inflate(R.layout.item_article, parent, false);
         final ArticlesAdapter.ArticleViewHolder viewHolder = new ArticlesAdapter.ArticleViewHolder(itemView);
         viewHolder.viewContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(callback != null){
-                    callback.onItemClick(viewHolder.article);
+                if(mCallback != null){
+                    mCallback.onItemClick(viewHolder.article);
                 }
             }
         });
@@ -54,21 +54,21 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.Articl
 
     @Override
     public void onBindViewHolder(ArticlesAdapter.ArticleViewHolder holder, int position) {
-        if(articles == null){
+        if(mArticles == null){
             return;
         }
-        Article article = articles.get(position);
+        Article article = mArticles.get(position);
         holder.article = article;
 
-        int margin = SystemUtils.dip2px(context, 12);
-        int height = (int) ((SystemUtils.getScreenWidth(context) - SystemUtils.dip2px(context, 24)) * 0.618);
+        int margin = SystemUtils.dip2px(mContext, 12);
+        int height = (int) ((SystemUtils.getScreenWidth(mContext) - SystemUtils.dip2px(mContext, 24)) * 0.618);
         LinearLayout.LayoutParams coverLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
         coverLayoutParams.setMargins(margin, margin, margin, margin);
         holder.imageCover.setLayoutParams(coverLayoutParams);
 
         holder.textTitle.setText(article.title);
         if(article.titleImage != null && !article.titleImage.isEmpty()){
-            Picasso.with(context)
+            Picasso.with(mContext)
                     .load(article.titleImage)
                     .into(holder.imageCover);
         }
@@ -76,10 +76,10 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.Articl
 
     @Override
     public int getItemCount() {
-        if(articles == null){
+        if(mArticles == null){
             return 0;
         }
-        return articles.size();
+        return mArticles.size();
     }
 
     public class ArticleViewHolder extends RecyclerView.ViewHolder {

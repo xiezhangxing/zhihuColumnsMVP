@@ -13,6 +13,7 @@ import com.classic.common.MultipleStatusView;
 import java.util.ArrayList;
 import java.util.List;
 
+import jason.xie.columns.BaseActivity;
 import jason.xie.columns.R;
 import jason.xie.columns.articledetail.ArticleDetailActivity;
 import jason.xie.columns.defaultcolumns.DefaultColumnsContract;
@@ -22,25 +23,28 @@ import jason.xie.columns.model.Article;
  * Created by Jason Xie on 2016/6/4.
  */
 
-public class ArticlesActivity extends AppCompatActivity implements ArticlesContract.View, ArticlesAdapter.Callback {
+public class ArticlesActivity extends BaseActivity implements ArticlesContract.View, ArticlesAdapter.Callback {
 
     private String mId;
+    private String mName;
     private ArticlesContract.Presenter mPresenter;
     private ArticlesAdapter mAdapter;
     private List<Article> mArticles;
-    private boolean isLoadingMore = false;
+    private boolean mIsLoadingMore = false;
 
     private MultipleStatusView mMultipleStatusView;
     private SwipeRefreshLayout mRefreshLayout;
-    private RecyclerView mRecylerView;
+    private RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle onSavedInstance){
         super.onCreate(onSavedInstance);
         setContentView(R.layout.activity_articles);
         mId = getIntent().getStringExtra("id");
+        mName = getIntent().getStringExtra("name");
+        setTitle(mName);
 
-        mRecylerView = (RecyclerView) findViewById(R.id.view_recycler);
+        mRecyclerView = (RecyclerView) findViewById(R.id.view_recycler);
         mMultipleStatusView = (MultipleStatusView) findViewById(R.id.view_multiple_status);
         mRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.content_view);
         mRefreshLayout.setColorSchemeColors(R.color.colorPrimary, R.color.colorAccent);
@@ -52,22 +56,22 @@ public class ArticlesActivity extends AppCompatActivity implements ArticlesContr
             }
         });
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        mRecylerView.setLayoutManager(layoutManager);
-        mRecylerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 int lastVisibleItem = layoutManager.findLastVisibleItemPosition();
                 int totalItem = layoutManager.getItemCount();
                 //当剩下2个item时加载下一页
-                if (lastVisibleItem > totalItem - 2 && dy > 0 && !isLoadingMore) {
-                    isLoadingMore = true;
+                if (lastVisibleItem > totalItem - 2 && dy > 0 && !mIsLoadingMore) {
+                    mIsLoadingMore = true;
                     mPresenter.loadArticles(mId, 10, mArticles.size());
                 }
             }
         });
         mAdapter = new ArticlesAdapter(this, mArticles, this);
-        mRecylerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(mAdapter);
 
         mPresenter = new ArticlesPresenter(this);
         mPresenter.loadArticles(mId, 10, 0);
@@ -80,7 +84,7 @@ public class ArticlesActivity extends AppCompatActivity implements ArticlesContr
 
     @Override
     public void showArticles(List<Article> articles) {
-        isLoadingMore = false;
+        mIsLoadingMore = false;
         mRefreshLayout.setRefreshing(false);
         mMultipleStatusView.showContent();
         mArticles = articles;
@@ -112,6 +116,7 @@ public class ArticlesActivity extends AppCompatActivity implements ArticlesContr
     public void onItemClick(Article article) {
         Intent intent = new Intent(this, ArticleDetailActivity.class);
         intent.putExtra("slug", article.slug);
+        intent.putExtra("title", article.title);
         startActivity(intent);
     }
 }

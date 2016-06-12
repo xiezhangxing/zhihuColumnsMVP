@@ -2,6 +2,7 @@ package jason.xie.columns.model;
 
 import java.util.List;
 
+import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -17,7 +18,7 @@ import rx.Observable;
 public interface APIService {
 
     @GET("api/columns/{id}")
-    Observable<Column> getColumnById(@Path("id") String id);
+    Call<Column> getColumnById(@Path("id") String id);
 
     @GET("api/columns/{id}/posts?")
     Observable<List<Article>> getArticleList(@Path("id") String id, @Query("limit") int limit, @Query("offset") int offset);

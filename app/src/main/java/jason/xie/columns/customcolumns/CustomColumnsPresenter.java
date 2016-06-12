@@ -8,6 +8,9 @@ import jason.xie.columns.ColumnsApplication;
 import jason.xie.columns.model.APIService;
 import jason.xie.columns.model.Column;
 import jason.xie.columns.model.SharedPreferencesHelper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -31,7 +34,6 @@ public class CustomColumnsPresenter implements CustomColumnsContract.Presenter {
         mColumnsId.addAll(columnsId);
         mApplication = ColumnsApplication.get();
         mAPIService = mApplication.getAPIService();
-        //preferencesHelper = ColumnsApplication.get().getPreferencesHelper();
         preferencesHelper = new SharedPreferencesHelper(mCustomColumnsView.getContext());
     }
 
@@ -47,31 +49,25 @@ public class CustomColumnsPresenter implements CustomColumnsContract.Presenter {
             mSubscription.unsubscribe();
         }
         for(String id : mColumnsId){
-        mSubscription = mAPIService.getColumnById(id)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(mApplication.defaultSubscribeScheduler())
-                .subscribe(new Subscriber<Column>() {
+        mAPIService.getColumnById(id)
+                .enqueue(new Callback<Column>() {
                     @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                    }
-
-                    @Override
-                    public void onNext(Column column) {
-                        mColumns.add(column);
+                    public void onResponse(Call<Column> call, Response<Column> response) {
+                        mColumns.add(response.body());
                         mCustomColumnsView.showColumns(mColumns);
                     }
+
+                    @Override
+                    public void onFailure(Call<Column> call, Throwable t) {
+
+                    }
                 });
+
         }
     }
 
     @Override
-    public void addColum(String id) {
+    public void addColumn(String id) {
         mColumnsId.add(id);
         loadColumns();
     }

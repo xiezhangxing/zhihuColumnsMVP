@@ -13,6 +13,7 @@ import android.webkit.WebViewClient;
 
 import com.classic.common.MultipleStatusView;
 
+import jason.xie.columns.BaseActivity;
 import jason.xie.columns.R;
 import jason.xie.columns.defaultcolumns.DefaultColumnsContract;
 
@@ -20,18 +21,19 @@ import jason.xie.columns.defaultcolumns.DefaultColumnsContract;
  * Created by Jason Xie on 2016/6/4.
  */
 
-public class ArticleDetailActivity extends AppCompatActivity implements ArticleDetailContract.View {
+public class ArticleDetailActivity extends BaseActivity implements ArticleDetailContract.View {
 
-    private MultipleStatusView mMutipleStatusView;
+    private MultipleStatusView mMultipleStatusView;
     private WebView mWebView;
-    private String slug;
+    private String mSlug;
+    private String mTitle;
     private ArticleDetailPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle onSavedInstance){
         super.onCreate(onSavedInstance);
         setContentView(R.layout.activity_article_detail);
-        mMutipleStatusView = (MultipleStatusView) findViewById(R.id.view_multiple_status);
+        mMultipleStatusView = (MultipleStatusView) findViewById(R.id.view_multiple_status);
         mWebView = (WebView) findViewById(R.id.webview);
 
         WebSettings webSettings = mWebView.getSettings();
@@ -46,7 +48,7 @@ public class ArticleDetailActivity extends AppCompatActivity implements ArticleD
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 if (newProgress > 10) {
-                    mMutipleStatusView.showContent();
+                    mMultipleStatusView.showContent();
                     mWebView.setVisibility(View.VISIBLE);
                 }
             }
@@ -82,26 +84,28 @@ public class ArticleDetailActivity extends AppCompatActivity implements ArticleD
                 setProgressBarIndeterminateVisibility(false);
                 mWebView.setVisibility(View.INVISIBLE);
                 if (errorCode == WebViewClient.ERROR_CONNECT || errorCode == ERROR_HOST_LOOKUP) {
-                    mMutipleStatusView.showNoNetwork();
+                    mMultipleStatusView.showNoNetwork();
                 } else {
-                    mMutipleStatusView.showError();
+                    mMultipleStatusView.showError();
                 }
             }
         });
 
-        slug = getIntent().getStringExtra("slug");
+        mSlug = getIntent().getStringExtra("slug");
+        mTitle = getIntent().getStringExtra("title");
+        setTitle(mTitle);
         mPresenter = new ArticleDetailPresenter(this);
-        mPresenter.loadContent(slug);
+        mPresenter.loadContent(mSlug);
     }
 
     @Override
     public void showLoading() {
-        mMutipleStatusView.showLoading();
+        mMultipleStatusView.showLoading();
     }
 
     @Override
     public void showContent(String content) {
-        mMutipleStatusView.showContent();
+        mMultipleStatusView.showContent();
         String css = "<link rel=\"stylesheet\" href=\"file:///android_asset/master.css\" type=\"text/css\">";
         String html = "<!DOCTYPE html>\n"
                 + "<html lang=\"en\" xmlns=\"http://www.w3.org/1999/xhtml\">\n"
@@ -117,7 +121,7 @@ public class ArticleDetailActivity extends AppCompatActivity implements ArticleD
 
     @Override
     public void showError() {
-        mMutipleStatusView.showError();
+        mMultipleStatusView.showError();
     }
 
     @Override

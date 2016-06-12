@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
+    <include layout="@layout/toolbar"/>
+
     <com.classic.common.MultipleStatusView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
