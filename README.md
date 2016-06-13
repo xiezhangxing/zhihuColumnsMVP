@@ -11,6 +11,6 @@ api接口借用了https://github.com/marktony/zhuanlan 感谢@marktony 的分析
 + UI，icon等需要优化。
 
 # 截图
-![0](https://github.com/xiezhangxing/zhihu_columns_mvp/tree/master/screenshots/Screenshot_0.png)
-![1](https://github.com/xiezhangxing/zhihu_columns_mvp/tree/master/screenshots/Screenshot_0.png)
-![2](https://github.com/xiezhangxing/zhihu_columns_mvp/tree/master/screenshots/Screenshot_0.png)
+![0](https://github.com/xiezhangxing/zhihu_columns_mvp/blob/master/screenshots/Screenshot_0.png)
+![1](https://github.com/xiezhangxing/zhihu_columns_mvp/blob/master/screenshots/Screenshot_0.png)
+![2](https://github.com/xiezhangxing/zhihu_columns_mvp/blob/master/screenshots/Screenshot_0.png)
