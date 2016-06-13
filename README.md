@@ -12,12 +12,13 @@ api接口借用了https://github.com/marktony/zhuanlan 感谢@marktony 的分析
 
 # 截图
 <div align="center">
-<img src="https://github.com/xiezhangxing/zhihu_columns_mvp/blob/master/screenshots/Screenshot_0.png" width = "300" height = "200" alt="专栏列表" align=center />
+<img src="https://github.com/xiezhangxing/zhihu_columns_mvp/blob/master/screenshots/Screenshot_0.png" width = "360" height = "640" alt="专栏列表" align=center />
 </div>
 
 <div align="center">
-<img src="https://github.com/xiezhangxing/zhihu_columns_mvp/blob/master/screenshots/Screenshot_1.png" width = "300" height = "200" alt="文章列表" align=center />
+<img src="https://github.com/xiezhangxing/zhihu_columns_mvp/blob/master/screenshots/Screenshot_1.png" width = "360" height = "640" alt="文章列表" align=center />
 </div>
 
 <div align="center">
-<img src="https://github.com/xiezhangxing/zhihu_columns_mvp/blob/master/screenshots/Screenshot_2.png" width = "300" height = "200" alt="文章详情" align=center />
+<img src="https://github.com/xiezhangxing/zhihu_columns_mvp/blob/master/screenshots/Screenshot_2.png" width = "360" height = "640" alt="文章详情" align=center />
+</div>
