@@ -18,7 +18,7 @@ import rx.Observable;
 public interface APIService {
 
     @GET("api/columns/{id}")
-    Call<Column> getColumnById(@Path("id") String id);
+    Observable<Column> getColumnById(@Path("id") String id);
 
     @GET("api/columns/{id}/posts?")
     Observable<List<Article>> getArticleList(@Path("id") String id, @Query("limit") int limit, @Query("offset") int offset);

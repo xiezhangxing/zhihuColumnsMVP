@@ -11,9 +11,11 @@ import jason.xie.columns.model.SharedPreferencesHelper;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 
 /**
  * Created by Jason Xie on 2016/6/4.
@@ -48,22 +50,32 @@ public class CustomColumnsPresenter implements CustomColumnsContract.Presenter {
         if(mSubscription != null){
             mSubscription.unsubscribe();
         }
-        for(String id : mColumnsId){
-        mAPIService.getColumnById(id)
-                .enqueue(new Callback<Column>() {
+        mSubscription = rx.Observable.from(mColumnsId)
+                .flatMap(new Func1<String, Observable<Column>>() {
                     @Override
-                    public void onResponse(Call<Column> call, Response<Column> response) {
-                        mColumns.add(response.body());
+                    public rx.Observable<Column> call(String s) {
+                        return mAPIService.getColumnById(s);
+                    }
+                })
+                .subscribeOn(mApplication.defaultSubscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Column>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+
+                    }
+
+                    @Override
+                    public void onNext(Column column) {
+                        mColumns.add(column);
                         mCustomColumnsView.showColumns(mColumns);
                     }
-
-                    @Override
-                    public void onFailure(Call<Column> call, Throwable t) {
-
-                    }
                 });
-
-        }
     }
 
     @Override
