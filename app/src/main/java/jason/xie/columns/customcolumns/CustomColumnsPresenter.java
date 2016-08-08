@@ -1,16 +1,12 @@
 package jason.xie.columns.customcolumns;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import jason.xie.columns.ColumnsApplication;
 import jason.xie.columns.model.APIService;
 import jason.xie.columns.model.Column;
 import jason.xie.columns.model.SharedPreferencesHelper;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
@@ -50,7 +46,7 @@ public class CustomColumnsPresenter implements CustomColumnsContract.Presenter {
         if(mSubscription != null){
             mSubscription.unsubscribe();
         }
-        mSubscription = rx.Observable.from(mColumnsId)
+        mSubscription = Observable.from(mColumnsId)
                 .flatMap(new Func1<String, Observable<Column>>() {
                     @Override
                     public rx.Observable<Column> call(String s) {
